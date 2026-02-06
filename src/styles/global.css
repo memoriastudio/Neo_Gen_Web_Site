@@ -113,3 +113,85 @@
 .form-input::placeholder {
   color: #6b7280;
 }
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: var(--primary);
+  transform: translateX(-50%);
+  opacity: 0.4;
+}
+
+.timeline-row {
+  position: relative;
+  width: 50%;
+  padding: 50px 0;
+}
+
+.timeline-row.left {
+  left: 0;
+  padding-right: 70px;
+  text-align: right;
+}
+
+.timeline-row.right {
+  left: 50%;
+  padding-left: 70px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+  border-radius: 50%;
+  transform: translate(-50%, 0);
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.timeline-card {
+  display: inline-block;
+  max-width: 340px;
+  padding: 26px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+
+  animation: floatCard 6s ease-in-out infinite;
+  transition:
+    transform 0.3s ease,
+    border 0.3s ease;
+}
+
+.timeline-card:hover {
+  animation-play-state: paused;
+  transform: translateY(-8px);
+  border-color: #22c55e;
+}
+
+@keyframes floatCard {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.timeline-row:nth-child(2) .timeline-card {
+  animation-delay: 0.5s;
+}
+.timeline-row:nth-child(3) .timeline-card {
+  animation-delay: 1s;
+}
+.timeline-row:nth-child(4) .timeline-card {
+  animation-delay: 1.5s;
+}
