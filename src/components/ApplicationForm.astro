@@ -2,148 +2,278 @@
 
 ---
 
+<style>
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-4px);
+    }
+    75% {
+      transform: translateX(4px);
+    }
+  }
+  .shake {
+    animation: shake 0.2s ease-in-out 0s 2;
+  }
+</style>
+
 <section id="contact" class="py-20 bg-background-dark">
   <div class="w-full max-w-3xl mx-auto px-4">
     <div class="glass-card p-8 md:p-12">
       <h2 class="text-3xl font-bold text-white mb-2">
-        Capital Analysis Application
+        Platform Growth Assessment
       </h2>
       <p class="text-gray-400 mb-8">
-        Please provide your channel details for analysis.
+        Share your channel details to explore growth and revenue opportunities.
       </p>
 
-      <form class="space-y-6">
-        <!-- Channel URL -->
-        <div>
-          <label
-            for="channelUrl"
-            class="block text-sm font-medium text-gray-300 mb-2"
-            >Channel URL</label
-          >
-          <input
-            type="url"
-            id="channelUrl"
-            name="channelUrl"
-            required
-            placeholder="https://youtube.com/@yourchannel"
-            class="form-input"
-          />
-        </div>
-
-        <!-- Monthly Views -->
-        <div>
-          <label
-            for="monthlyViews"
-            class="block text-sm font-medium text-gray-300 mb-2"
-            >Monthly Views (Avg last 90 days)</label
-          >
-          <select
-            id="monthlyViews"
-            name="monthlyViews"
-            required
-            class="form-input bg-background-dark"
-          >
-            <option value="" disabled selected>Select an option</option>
-            <option value="under_500k">&lt; 500k</option>
-            <option value="500k_1m">500k - 1M</option>
-            <option value="1m_5m">1M - 5M</option>
-            <option value="over_5m">+5M</option>
-          </select>
-        </div>
-
-        <!-- Total Uploaded Videos -->
-        <div>
-          <label
-            for="totalVideos"
-            class="block text-sm font-medium text-gray-300 mb-2"
-            >Total Uploaded Videos</label
-          >
-          <select
-            id="totalVideos"
-            name="totalVideos"
-            required
-            class="form-input"
-          >
-            <option value="" disabled selected>Select an option</option>
-            <option value="under_50">&lt; 50</option>
-            <option value="50_200">50 - 200</option>
-            <option value="over_200">+200</option>
-          </select>
-        </div>
-
-        <!-- Content Category -->
-        <div>
-          <label
-            for="category"
-            class="block text-sm font-medium text-gray-300 mb-2"
-            >Content Category</label
-          >
-          <select id="category" name="category" required class="form-input">
-            <option value="" disabled selected>Select an option</option>
-            <option value="education">Education</option>
-            <option value="documentary">Documentary</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="gaming">Gaming</option>
-            <option value="tech">Tech</option>
-            <option value="news">News</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        <!-- Rights Ownership -->
-        <div class="space-y-2">
-          <label class="block text-sm font-medium text-gray-300"
-            >Do you own 100% of the rights to your content?</label
-          >
-          <div class="flex items-center gap-6">
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="rights"
-                value="yes"
-                required
-                class="accent-primary w-4 h-4"
-              />
-              <span class="text-gray-300">Yes</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="rights"
-                value="no"
-                class="accent-primary w-4 h-4"
-              />
-              <span class="text-gray-300">No</span>
-            </label>
+      <form class="space-y-6" id="applicationForm" novalidate>
+        <!-- Success Message (Hidden by default) -->
+        <div
+          id="successMessage"
+          class="hidden text-center py-8 animate-in fade-in zoom-in duration-500"
+        >
+          <div class="mb-6 flex justify-center">
+            <div class="rounded-full bg-primary/20 p-4">
+              <span class="material-symbols-outlined text-primary text-5xl"
+                >check_circle</span
+              >
+            </div>
           </div>
-        </div>
-
-        <!-- Contact Email -->
-        <div>
-          <label
-            for="email"
-            class="block text-sm font-medium text-gray-300 mb-2"
-            >Contact Email</label
-          >
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            placeholder="you@example.com"
-            class="form-input"
-          />
-        </div>
-
-        <div class="pt-4">
+          <h2 class="text-3xl font-bold text-white mb-4">Application Sent!</h2>
+          <p class="text-gray-400 text-lg mb-8">
+            Thank you for your interest. Our team will analyze your channel and
+            get back to you within 48 hours.
+          </p>
           <button
-            type="submit"
-            class="w-full bg-white text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform"
+            type="button"
+            onclick="location.reload()"
+            class="px-8 py-3 bg-white text-black font-bold rounded-xl hover:scale-105 transition-transform"
           >
-            Submit for Analysis
+            Close
           </button>
+        </div>
+
+        <div id="formContent" class="space-y-6">
+          <!-- Channel URL -->
+          <div>
+            <label
+              for="channelUrl"
+              class="block text-sm font-medium text-gray-300 mb-2"
+              >Channel URL</label
+            >
+            <input
+              type="url"
+              id="channelUrl"
+              name="channelUrl"
+              required
+              placeholder="https://youtube.com/@yourchannel"
+              class="form-input"
+            />
+            <p class="hidden text-red-500 text-sm mt-1" id="error-channelUrl">
+              Please provide a valid YouTube channel link.
+            </p>
+          </div>
+
+          <!-- Monthly Views -->
+          <div>
+            <label
+              for="monthlyViews"
+              class="block text-sm font-medium text-gray-300 mb-2"
+              >Monthly Views (Avg last 90 days)</label
+            >
+            <select
+              id="monthlyViews"
+              name="monthlyViews"
+              required
+              class="form-input bg-background-dark"
+            >
+              <option value="" disabled selected>Select an option</option>
+              <option value="under_500k">&lt; 500k</option>
+              <option value="500k_1m">500k - 1M</option>
+              <option value="1m_5m">1M - 5M</option>
+              <option value="over_5m">+5M</option>
+            </select>
+            <p class="hidden text-red-500 text-sm mt-1" id="error-monthlyViews">
+              Please select your average monthly views.
+            </p>
+          </div>
+
+          <!-- Total Uploaded Videos -->
+          <div>
+            <label
+              for="totalVideos"
+              class="block text-sm font-medium text-gray-300 mb-2"
+              >Total Uploaded Videos</label
+            >
+            <select
+              id="totalVideos"
+              name="totalVideos"
+              required
+              class="form-input"
+            >
+              <option value="" disabled selected>Select an option</option>
+              <option value="under_50">&lt; 50</option>
+              <option value="50_200">50 - 200</option>
+              <option value="over_200">+200</option>
+            </select>
+            <p class="hidden text-red-500 text-sm mt-1" id="error-totalVideos">
+              Please choose a video count range.
+            </p>
+          </div>
+
+          <!-- Content Category -->
+          <div>
+            <label
+              for="category"
+              class="block text-sm font-medium text-gray-300 mb-2"
+              >Content Category</label
+            >
+            <select id="category" name="category" required class="form-input">
+              <option value="" disabled selected>Select an option</option>
+              <option value="education">Education</option>
+              <option value="documentary">Documentary</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="gaming">Gaming</option>
+              <option value="tech">Tech</option>
+              <option value="news">News</option>
+              <option value="other">Other</option>
+            </select>
+            <p class="hidden text-red-500 text-sm mt-1" id="error-category">
+              Please select your content category.
+            </p>
+          </div>
+
+          <!-- Rights Ownership -->
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-300"
+              >Do you own 100% of the rights to your content?</label
+            >
+            <div class="flex items-center gap-6">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="rights"
+                  value="yes"
+                  required
+                  class="accent-primary w-4 h-4"
+                />
+                <span class="text-gray-300">Yes</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="rights"
+                  value="no"
+                  class="accent-primary w-4 h-4"
+                />
+                <span class="text-gray-300">No</span>
+              </label>
+            </div>
+            <p class="hidden text-red-500 text-sm mt-1" id="error-rights">
+              Please confirm your rights ownership status.
+            </p>
+          </div>
+
+          <!-- Contact Email -->
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium text-gray-300 mb-2"
+              >Contact Email</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="you@example.com"
+              class="form-input"
+            />
+            <p class="hidden text-red-500 text-sm mt-1" id="error-email">
+              A valid contact email is required.
+            </p>
+          </div>
+
+          <div class="pt-4">
+            <button
+              type="submit"
+              class="w-full bg-white text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform"
+            >
+              Submit for Analysis
+            </button>
+          </div>
         </div>
       </form>
     </div>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById("contact") as HTMLFormElement;
+  const formContent = document.getElementById("formContent");
+  const successMessage = document.getElementById("successMessage");
+
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      let isValid = true;
+
+      const toggleError = (id: string, show: boolean) => {
+        const el = document.getElementById(id);
+        if (el) {
+          if (show) el.classList.remove("hidden");
+          else el.classList.add("hidden");
+        }
+      };
+
+      const fields = [
+        { id: "channelUrl", errorId: "error-channelUrl" },
+        { id: "monthlyViews", errorId: "error-monthlyViews" },
+        { id: "totalVideos", errorId: "error-totalVideos" },
+        { id: "category", errorId: "error-category" },
+        { id: "email", errorId: "error-email" },
+      ];
+
+      fields.forEach((field) => {
+        const el = document.getElementById(field.id) as
+          | HTMLInputElement
+          | HTMLSelectElement;
+        if (!el || !el.value) {
+          toggleError(field.errorId, true);
+          isValid = false;
+        } else {
+          toggleError(field.errorId, false);
+        }
+      });
+
+      const rights = document.querySelector('input[name="rights"]:checked');
+      if (!rights) {
+        toggleError("error-rights", true);
+        isValid = false;
+      } else {
+        toggleError("error-rights", false);
+      }
+
+      if (!isValid) {
+        // Trigger shake animation
+        form.classList.remove("shake");
+        void form.offsetWidth; // Trigger reflow
+        form.classList.add("shake");
+        return;
+      }
+
+      // If valid, show success state
+      if (formContent && successMessage) {
+        formContent.classList.add("hidden");
+        successMessage.classList.remove("hidden");
+
+        // Scroll to form top smoothly
+        form.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+  }
+</script>
