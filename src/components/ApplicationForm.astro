@@ -6,7 +6,7 @@
   <div class="w-full max-w-3xl mx-auto px-4">
     <div class="glass-card p-8 md:p-12">
       <h2 class="text-3xl font-bold text-white mb-2">
-        Platform Growth Assessment
+        YouTube Growth Assessment
       </h2>
       <p class="text-gray-400 mb-8">
         Share your channel details to explore growth and revenue opportunities.
@@ -241,19 +241,16 @@
       }
 
       if (!isValid) {
-        // Trigger shake animation
         form.classList.remove("shake");
-        void form.offsetWidth; // Trigger reflow
+        void form.offsetWidth;
         form.classList.add("shake");
         return;
       }
 
-      // If valid, show success state
       if (formContent && successMessage) {
         formContent.classList.add("hidden");
         successMessage.classList.remove("hidden");
 
-        // Scroll to form top smoothly
         form.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     });
