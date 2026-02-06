@@ -1,0 +1,149 @@
+---
+
+---
+
+<section id="contact" class="py-20 bg-background-dark">
+  <div class="w-full max-w-3xl mx-auto px-4">
+    <div class="glass-card p-8 md:p-12">
+      <h2 class="text-3xl font-bold text-white mb-2">
+        Capital Analysis Application
+      </h2>
+      <p class="text-gray-400 mb-8">
+        Please provide your channel details for analysis.
+      </p>
+
+      <form class="space-y-6">
+        <!-- Channel URL -->
+        <div>
+          <label
+            for="channelUrl"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Channel URL</label
+          >
+          <input
+            type="url"
+            id="channelUrl"
+            name="channelUrl"
+            required
+            placeholder="https://youtube.com/@yourchannel"
+            class="form-input"
+          />
+        </div>
+
+        <!-- Monthly Views -->
+        <div>
+          <label
+            for="monthlyViews"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Monthly Views (Avg last 90 days)</label
+          >
+          <select
+            id="monthlyViews"
+            name="monthlyViews"
+            required
+            class="form-input bg-background-dark"
+          >
+            <option value="" disabled selected>Select an option</option>
+            <option value="under_500k">&lt; 500k</option>
+            <option value="500k_1m">500k - 1M</option>
+            <option value="1m_5m">1M - 5M</option>
+            <option value="over_5m">+5M</option>
+          </select>
+        </div>
+
+        <!-- Total Uploaded Videos -->
+        <div>
+          <label
+            for="totalVideos"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Total Uploaded Videos</label
+          >
+          <select
+            id="totalVideos"
+            name="totalVideos"
+            required
+            class="form-input"
+          >
+            <option value="" disabled selected>Select an option</option>
+            <option value="under_50">&lt; 50</option>
+            <option value="50_200">50 - 200</option>
+            <option value="over_200">+200</option>
+          </select>
+        </div>
+
+        <!-- Content Category -->
+        <div>
+          <label
+            for="category"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Content Category</label
+          >
+          <select id="category" name="category" required class="form-input">
+            <option value="" disabled selected>Select an option</option>
+            <option value="education">Education</option>
+            <option value="documentary">Documentary</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="gaming">Gaming</option>
+            <option value="tech">Tech</option>
+            <option value="news">News</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <!-- Rights Ownership -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-300"
+            >Do you own 100% of the rights to your content?</label
+          >
+          <div class="flex items-center gap-6">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="rights"
+                value="yes"
+                required
+                class="accent-primary w-4 h-4"
+              />
+              <span class="text-gray-300">Yes</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="rights"
+                value="no"
+                class="accent-primary w-4 h-4"
+              />
+              <span class="text-gray-300">No</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Contact Email -->
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Contact Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="you@example.com"
+            class="form-input"
+          />
+        </div>
+
+        <div class="pt-4">
+          <button
+            type="submit"
+            class="w-full bg-white text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform"
+          >
+            Submit for Analysis
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
