@@ -9,14 +9,32 @@ import ApplicationForm from "../components/ApplicationForm.astro";
 import Footer from "../components/Footer.astro";
 import PlatformPreview from "../components/PlatformPreview.astro";
 import MarketTicker from "../components/MarketTicker.astro";
+import StepsTimeline from "../components/StepsTimeline.astro";
 ---
 
 <Layout title="NeoGen — The Compounding Engine for YouTube">
   <Navbar />
   <main class="flex-1 bg-background-dark">
     <Hero />
-    <MarketTicker />
-    <PlatformPreview />
+    <!-- <MarketTicker /> -->
+    <!-- <PlatformPreview /> -->
+    <!-- <StepsTimeline
+    title="How it works"
+    items={[
+      {
+        title: "Set up in minutes",
+        text: "Create your workspace, invite your team, and configure projects effortlessly—no complex onboarding or technical setup required.",
+      },
+      {
+        title: "Collaborate without friction",
+        text: "Centralize communication, assets, and tasks in one place so everyone stays aligned and productive.",
+      },
+      {
+        title: "Deliver measurable results",
+        text: "Track progress in real time, optimize workflows, and ship projects faster with complete visibility.",
+      },
+    ]}
+  /> -->
     <FinancialRationale />
     <OperationalFramework />
     <AgreementTerms />
