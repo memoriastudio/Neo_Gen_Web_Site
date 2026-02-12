@@ -1,0 +1,222 @@
+---
+
+---
+
+<section
+    class="border-y border-gray-200 dark:border-border-dark bg-slate-50 dark:bg-surface-dark/50 overflow-hidden py-4"
+>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div
+            class="flex flex-col md:flex-row items-start md:items-center justify-center gap-6 md:gap-12 w-fit mx-auto md:w-full"
+        >
+            <!-- BTC -->
+            <div class="flex items-center gap-3 ticker-item">
+                <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-[#F7931A]/10 notranslate"
+                    translate="no"
+                >
+                    <span
+                        class="material-symbols-outlined text-[#F7931A] text-xl"
+                        >currency_bitcoin</span
+                    >
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs font-medium text-gray-500 uppercase"
+                        >Bitcoin</span
+                    >
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-sm font-bold dark:text-white"
+                            id="ticker-price-BTC">$--.---</span
+                        >
+                        <span
+                            class="text-xs font-medium flex items-center notranslate"
+                            translate="no"
+                            id="ticker-change-BTC"
+                        >
+                            --%
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- ETH -->
+            <div class="flex items-center gap-3 ticker-item">
+                <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-[#627EEA]/10 notranslate"
+                    translate="no"
+                >
+                    <span
+                        class="material-symbols-outlined text-[#627EEA] text-xl"
+                        >token</span
+                    >
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs font-medium text-gray-500 uppercase"
+                        >Ethereum</span
+                    >
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-sm font-bold dark:text-white"
+                            id="ticker-price-ETH">$--.---</span
+                        >
+                        <span
+                            class="text-xs font-medium flex items-center notranslate"
+                            translate="no"
+                            id="ticker-change-ETH"
+                        >
+                            --%
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- SPX -->
+            <div class="flex items-center gap-3 ticker-item">
+                <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-500/10 notranslate"
+                    translate="no"
+                >
+                    <span
+                        class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-xl"
+                        >show_chart</span
+                    >
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs font-medium text-gray-500 uppercase"
+                        >S&P 500</span
+                    >
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-sm font-bold dark:text-white"
+                            id="ticker-price-SPX">$5,910.80</span
+                        >
+                        <span
+                            class="text-xs font-medium text-accent-green flex items-center notranslate"
+                            translate="no"
+                        >
+                            <span class="material-symbols-outlined text-[14px]"
+                                >arrow_drop_up</span
+                            >
+                            0.54%
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- NASDAQ -->
+            <div class="flex items-center gap-3 ticker-item">
+                <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-500/10 notranslate"
+                    translate="no"
+                >
+                    <span
+                        class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-xl"
+                        >monitoring</span
+                    >
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs font-medium text-gray-500 uppercase"
+                        >Nasdaq</span
+                    >
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-sm font-bold dark:text-white"
+                            id="ticker-price-NDAQ">$21,490.20</span
+                        >
+                        <span
+                            class="text-xs font-medium text-accent-green flex items-center notranslate"
+                            translate="no"
+                        >
+                            <span class="material-symbols-outlined text-[14px]"
+                                >arrow_drop_up</span
+                            >
+                            0.82%
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script is:inline>
+    (function () {
+        /**
+         * Real-time Crypto Data (Binance)
+         */
+        const updateCrypto = async () => {
+            try {
+                const response = await fetch(
+                    'https://api.binance.com/api/v3/ticker/24hr?symbols=["BTCUSDT","ETHUSDT"]',
+                );
+                const data = await response.json();
+
+                data.forEach((ticker) => {
+                    const symbol = ticker.symbol.replace("USDT", "");
+                    const priceEl = document.getElementById(
+                        `ticker-price-${symbol}`,
+                    );
+                    const changeEl = document.getElementById(
+                        `ticker-change-${symbol}`,
+                    );
+
+                    if (priceEl) {
+                        const price = parseFloat(ticker.lastPrice);
+                        priceEl.innerText =
+                            "$" +
+                            price.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            });
+                    }
+
+                    if (changeEl) {
+                        const change = parseFloat(ticker.priceChangePercent);
+                        const isPositive = change >= 0;
+                        changeEl.className = `text-xs font-medium flex items-center notranslate ${isPositive ? "text-accent-green" : "text-accent-red"}`;
+                        changeEl.innerHTML = `
+                            <span class="material-symbols-outlined text-[14px]">${isPositive ? "arrow_drop_up" : "arrow_drop_down"}</span>
+                            ${Math.abs(change).toFixed(2)}%
+                        `;
+                    }
+                });
+            } catch (error) {
+                console.warn("Ticker crypto update failed:", error);
+            }
+        };
+
+        /**
+         * Live Simulation for Indices (S&P 500 / NASDAQ)
+         */
+        let spxBase = 5910.8;
+        let ndaqBase = 21490.2;
+
+        const updateIndices = () => {
+            // Micro-fluctuations
+            spxBase += (Math.random() - 0.5) * 1.5;
+            ndaqBase += (Math.random() - 0.5) * 4.2;
+
+            const spxEl = document.getElementById("ticker-price-SPX");
+            const ndaqEl = document.getElementById("ticker-price-NDAQ");
+
+            if (spxEl)
+                spxEl.innerText =
+                    "$" +
+                    spxBase.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                    });
+            if (ndaqEl)
+                ndaqEl.innerText =
+                    "$" +
+                    ndaqBase.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                    });
+        };
+
+        updateCrypto();
+        updateIndices();
+
+        setInterval(updateCrypto, 3000);
+        setInterval(updateIndices, 1500);
+    })();
+</script>

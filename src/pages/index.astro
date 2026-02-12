@@ -7,12 +7,16 @@ import OperationalFramework from "../components/OperationalFramework.astro";
 import AgreementTerms from "../components/AgreementTerms.astro";
 import ApplicationForm from "../components/ApplicationForm.astro";
 import Footer from "../components/Footer.astro";
+import PlatformPreview from "../components/PlatformPreview.astro";
+import MarketTicker from "../components/MarketTicker.astro";
 ---
 
 <Layout title="NeoGen — The Compounding Engine for YouTube">
   <Navbar />
   <main class="flex-1 bg-background-dark">
     <Hero />
+    <MarketTicker />
+    <PlatformPreview />
     <FinancialRationale />
     <OperationalFramework />
     <AgreementTerms />

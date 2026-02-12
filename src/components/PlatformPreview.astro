@@ -1,0 +1,703 @@
+---
+
+---
+
+<section class="py-16 lg:py-24 relative overflow-hidden">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div
+            class="relative rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0E14] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] overflow-hidden"
+        >
+            <!-- Fake Browser/App Header -->
+            <div
+                class="flex items-center gap-2 border-b border-gray-100 dark:border-border-dark bg-gray-50 dark:bg-[#13161c] px-4 py-3"
+            >
+                <div class="flex gap-1.5">
+                    <div class="h-3 w-3 rounded-full bg-red-400"></div>
+                    <div class="h-3 w-3 rounded-full bg-yellow-400"></div>
+                    <div class="h-3 w-3 rounded-full bg-green-400"></div>
+                </div>
+                <div
+                    class="ml-4 flex h-6 items-center rounded bg-gray-200 dark:bg-border-dark px-3 text-[10px] sm:text-xs text-gray-500 truncate min-w-0"
+                >
+                    fintechpro.app/dashboard/trade/BTC-USD
+                </div>
+            </div>
+            <!-- Dashboard Content -->
+            <div
+                class="grid grid-cols-12 h-[550px] lg:h-[650px] divide-x divide-gray-100 dark:divide-border-dark bg-white dark:bg-surface-dark"
+            >
+                <!-- Left Sidebar (Assets) -->
+                <div
+                    class="hidden md:block col-span-2 lg:col-span-2 p-4 space-y-4 overflow-y-auto"
+                >
+                    <div
+                        class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2"
+                    >
+                        Watchlist
+                    </div>
+                    <div class="space-y-2" id="watchlist">
+                        <div
+                            class="flex justify-between items-center p-2 bg-gray-50 dark:bg-border-dark/50 rounded cursor-pointer border border-transparent dark:border-primary/20 watchlist-item active"
+                            data-pair="BTCUSDT"
+                            data-label="BTC/USD"
+                        >
+                            <span class="font-medium text-sm">BTC</span>
+                            <span
+                                class="text-xs font-mono text-emerald-400"
+                                id="price-BTC">--.--</span
+                            >
+                        </div>
+                        <div
+                            class="flex justify-between items-center p-2 hover:bg-gray-50 dark:hover:bg-border-dark/30 rounded cursor-pointer watchlist-item transition-colors"
+                            data-pair="ETHUSDT"
+                            data-label="ETH/USD"
+                        >
+                            <span class="font-medium text-sm">ETH</span>
+                            <span
+                                class="text-xs font-mono text-red-400"
+                                id="price-ETH">--.--</span
+                            >
+                        </div>
+                        <div
+                            class="flex justify-between items-center p-2 hover:bg-gray-50 dark:hover:bg-border-dark/30 rounded cursor-pointer watchlist-item transition-colors"
+                            data-pair="SOLUSDT"
+                            data-label="SOL/USD"
+                        >
+                            <span class="font-medium text-sm">SOL</span>
+                            <span
+                                class="text-xs font-mono text-emerald-400"
+                                id="price-SOL">--.--</span
+                            >
+                        </div>
+                    </div>
+                </div>
+                <!-- Main Chart Area -->
+                <div
+                    class="col-span-12 md:col-span-7 lg:col-span-8 flex flex-col relative bg-cover bg-center"
+                    style="background-image: linear-gradient(rgba(17, 24, 39, 0.9), rgba(17, 24, 39, 0.95)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBnzpV18RV8DL1adxNKN2Yj-Z5K4SBVzOBhgt52Lgm4Pg7QqqpbaAzW3u02Xa-m5lxTJ-rVmwb_H4r49t9jcg53ZVtElGUaYu6JSEHBEhysQcKFid-pOxL4BKKdTOxiR-R_dxpwwuzBV5BSpVVJ7A8hwL_ItgfKKSHHc5_v6vsPIYjf9HFm4x6XXnOVeTMjx_NeYaRQn7UWuv3NABh87OCWHhz0ayQqOxn9CKX0eIZKHIOxshEwYF35KJJOpOUuYxRATlW6PEdKR8A');"
+                >
+                    <!-- Mobile Pair Selector -->
+                    <div
+                        class="md:hidden flex items-center gap-2 px-3 py-2 overflow-x-auto bg-gray-50/5 dark:bg-[#13161c] border-b border-gray-100 dark:border-border-dark no-scrollbar shrink-0"
+                    >
+                        <button
+                            class="watchlist-item active whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold border border-primary/30 transition-all flex items-center gap-2 mobile-active-state"
+                            data-pair="BTCUSDT"
+                            data-label="BTC/USD"
+                        >
+                            <span class="w-2 h-2 rounded-full bg-orange-400"
+                            ></span>
+                            BTC/USD
+                        </button>
+                        <button
+                            class="watchlist-item whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold border border-white/5 dark:border-white/10 text-gray-400 transition-all flex items-center gap-2"
+                            data-pair="ETHUSDT"
+                            data-label="ETH/USD"
+                        >
+                            <span class="w-2 h-2 rounded-full bg-blue-400"
+                            ></span>
+                            ETH/USD
+                        </button>
+                        <button
+                            class="watchlist-item whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold border border-white/5 dark:border-white/10 text-gray-400 transition-all flex items-center gap-2"
+                            data-pair="SOLUSDT"
+                            data-label="SOL/USD"
+                        >
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"
+                            ></span>
+                            SOL/USD
+                        </button>
+                    </div>
+                    <!-- Chart Toolbar -->
+                    <div
+                        class="flex items-center justify-between border-b border-gray-100 dark:border-border-dark p-3 bg-white/5 dark:bg-surface-dark/90 backdrop-blur-sm z-10"
+                    >
+                        <div class="flex items-center gap-3">
+                            <h3
+                                class="font-bold text-lg text-white"
+                                id="current-symbol-label"
+                            >
+                                BTC/USD
+                            </h3>
+                            <div
+                                id="btc-header-price"
+                                class="flex items-center gap-2"
+                            >
+                                <span
+                                    class="bg-emerald-500/20 text-emerald-400 text-[14px] font-mono font-bold px-2 py-0.5 rounded"
+                                    id="live-price"
+                                >
+                                    --.--
+                                </span>
+                                <span
+                                    class="text-xs text-emerald-400 font-medium font-mono"
+                                    id="live-change"
+                                >
+                                    +0.00%
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex gap-2" id="timeframe-buttons">
+                            <span
+                                class="text-[10px] uppercase font-bold text-gray-400 px-2 py-1 hover:bg-white/10 rounded cursor-pointer tf-btn"
+                                data-interval="1h">1H</span
+                            >
+                            <span
+                                class="text-[10px] uppercase font-bold text-white bg-primary px-2 py-1 rounded cursor-pointer shadow-lg shadow-primary/20 tf-btn active"
+                                data-interval="4h">4H</span
+                            >
+                            <span
+                                class="text-[10px] uppercase font-bold text-gray-400 px-2 py-1 hover:bg-white/10 rounded cursor-pointer tf-btn"
+                                data-interval="1d">1D</span
+                            >
+                            <span
+                                class="flex items-center justify-center ml-2 notranslate"
+                                translate="no"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-gray-400 text-sm cursor-pointer rotate-0 hover:rotate-90 transition-transform"
+                                    >settings</span
+                                >
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Lightweight Chart Container -->
+                    <div class="flex-1 w-full h-full relative" id="tv-chart">
+                        <div
+                            id="chart-loading"
+                            class="absolute inset-0 flex items-center justify-center bg-surface-dark/95 z-20 transition-opacity duration-500"
+                        >
+                            <div
+                                class="flex flex-col items-center gap-3 text-center"
+                            >
+                                <div
+                                    id="spinner"
+                                    class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"
+                                >
+                                </div>
+                                <div class="space-y-1">
+                                    <span
+                                        id="loading-text"
+                                        class="block text-sm text-white font-medium"
+                                        >Sincronizando mercado...</span
+                                    >
+                                    <span
+                                        class="block text-[10px] text-gray-500 uppercase tracking-widest font-bold"
+                                        >Binance Live Data Hub</span
+                                    >
+                                </div>
+                                <button
+                                    id="retry-btn"
+                                    class="hidden mt-4 px-6 py-2 bg-primary hover:bg-primary-dark text-white text-xs font-bold rounded-full transition-all shadow-lg"
+                                    >Reiniciar Conexión</button
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Use specific version for stability -->
+                    <script
+                        is:inline
+                        src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"
+                    ></script>
+
+                    <script is:inline>
+                        /**
+                         * MARKET DATA SERVICE
+                         */
+                        const MarketDataService = {
+                            baseUrl: "https://api.binance.com/api/v3",
+                            async fetchKlines(
+                                symbol,
+                                interval = "4h",
+                                limit = 100,
+                            ) {
+                                try {
+                                    const response = await fetch(
+                                        `${this.baseUrl}/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`,
+                                    );
+                                    if (!response.ok)
+                                        throw new Error(
+                                            `HTTP ${response.status}`,
+                                        );
+                                    const data = await response.json();
+                                    return data.map((d) => ({
+                                        time: d[0] / 1000,
+                                        open: parseFloat(d[1]),
+                                        high: parseFloat(d[2]),
+                                        low: parseFloat(d[3]),
+                                        close: parseFloat(d[4]),
+                                    }));
+                                } catch (error) {
+                                    console.error("Klines fetch error:", error);
+                                    throw error;
+                                }
+                            },
+                            async fetchTickers(symbols) {
+                                try {
+                                    const results = await Promise.all(
+                                        symbols.map((s) =>
+                                            fetch(
+                                                `${this.baseUrl}/ticker/24hr?symbol=${s}`,
+                                            ).then((r) => r.json()),
+                                        ),
+                                    );
+                                    return results;
+                                } catch (error) {
+                                    console.error(
+                                        "Tickers fetch error:",
+                                        error,
+                                    );
+                                    throw error;
+                                }
+                            },
+                        };
+
+                        /**
+                         * FINANCIAL CHART MODULE
+                         */
+                        class FinancialChartModule {
+                            constructor(containerId) {
+                                this.container =
+                                    document.getElementById(containerId);
+                                this.chart = null;
+                                this.series = null;
+                            }
+                            init() {
+                                if (
+                                    !this.container ||
+                                    !window.LightweightCharts
+                                )
+                                    return false;
+                                try {
+                                    if (this.chart) {
+                                        this.chart.remove();
+                                        this.chart = null;
+                                    }
+
+                                    this.chart =
+                                        window.LightweightCharts.createChart(
+                                            this.container,
+                                            {
+                                                layout: {
+                                                    background: {
+                                                        color: "transparent",
+                                                    },
+                                                    textColor: "#9ca3af",
+                                                    fontSize: 11,
+                                                },
+                                                grid: {
+                                                    vertLines: {
+                                                        color: "rgba(31, 41, 55, 0.1)",
+                                                    },
+                                                    horzLines: {
+                                                        color: "rgba(31, 41, 55, 0.1)",
+                                                    },
+                                                },
+                                                rightPriceScale: {
+                                                    borderColor:
+                                                        "rgba(31, 41, 55, 0.5)",
+                                                    autoScale: true,
+                                                },
+                                                timeScale: {
+                                                    borderColor:
+                                                        "rgba(31, 41, 55, 0.5)",
+                                                    timeVisible: true,
+                                                    secondsVisible: false,
+                                                },
+                                            },
+                                        );
+
+                                    this.series =
+                                        this.chart.addCandlestickSeries({
+                                            upColor: "#10b981",
+                                            downColor: "#ef4444",
+                                            borderVisible: false,
+                                            wickUpColor: "#10b981",
+                                            wickDownColor: "#ef4444",
+                                        });
+
+                                    const resize = () => {
+                                        if (this.chart && this.container) {
+                                            this.chart.applyOptions({
+                                                width: this.container
+                                                    .clientWidth,
+                                                height: this.container
+                                                    .clientHeight,
+                                            });
+                                        }
+                                    };
+
+                                    new ResizeObserver(resize).observe(
+                                        this.container,
+                                    );
+                                    window.addEventListener("resize", resize);
+                                    setTimeout(resize, 100);
+
+                                    return true;
+                                } catch (e) {
+                                    console.error("Chart init error:", e);
+                                    return false;
+                                }
+                            }
+                            setData(data) {
+                                if (this.series) this.series.setData(data);
+                            }
+                            update(data) {
+                                if (this.series) this.series.update(data);
+                            }
+                        }
+
+                        /**
+                         * APP CONTROLLER
+                         */
+                        (function () {
+                            const chartModule = new FinancialChartModule(
+                                "tv-chart",
+                            );
+                            let currentPair = "BTCUSDT";
+                            let currentLabel = "BTC/USD";
+                            let currentInterval = "4h";
+                            const watchlistPairs = [
+                                "BTCUSDT",
+                                "ETHUSDT",
+                                "SOLUSDT",
+                            ];
+                            let pollingInterval = null;
+
+                            const UI = {
+                                loading:
+                                    document.getElementById("chart-loading"),
+                                errorText:
+                                    document.getElementById("loading-text"),
+                                retryBtn: document.getElementById("retry-btn"),
+                                livePrice:
+                                    document.getElementById("live-price"),
+                                liveChange:
+                                    document.getElementById("live-change"),
+                                currentLabel: document.getElementById(
+                                    "current-symbol-label",
+                                ),
+                                watchlistItems:
+                                    document.querySelectorAll(
+                                        ".watchlist-item",
+                                    ),
+                                timeframeBtns:
+                                    document.querySelectorAll(".tf-btn"),
+                                setStatus(type, message = "") {
+                                    if (type === "loading") {
+                                        this.loading.style.display = "flex";
+                                        this.loading.style.opacity = "1";
+                                        if (message)
+                                            this.errorText.innerText = message;
+                                    } else if (type === "success") {
+                                        this.loading.style.opacity = "0";
+                                        setTimeout(
+                                            () =>
+                                                (this.loading.style.display =
+                                                    "none"),
+                                            500,
+                                        );
+                                    } else if (type === "error") {
+                                        this.errorText.innerText = `Error: ${message}`;
+                                        this.retryBtn.classList.remove(
+                                            "hidden",
+                                        );
+                                        this.retryBtn.onclick = () =>
+                                            window.location.reload();
+                                    }
+                                },
+                            };
+
+                            async function loadSymbol(
+                                pair,
+                                label,
+                                interval = currentInterval,
+                            ) {
+                                currentPair = pair;
+                                currentInterval = interval;
+                                if (UI.currentLabel)
+                                    UI.currentLabel.innerText = label;
+                                UI.setStatus(
+                                    "loading",
+                                    "Cargando market data...",
+                                );
+                                try {
+                                    const historicalData =
+                                        await MarketDataService.fetchKlines(
+                                            pair,
+                                            interval,
+                                        );
+                                    chartModule.setData(historicalData);
+                                    UI.setStatus("success");
+                                    startPolling();
+                                } catch (err) {
+                                    UI.setStatus("error", "Fallo de conexión");
+                                }
+                            }
+
+                            function startPolling() {
+                                if (pollingInterval)
+                                    clearInterval(pollingInterval);
+                                pollingInterval = setInterval(async () => {
+                                    try {
+                                        // Fetch latest candle for current interval
+                                        const latest =
+                                            await MarketDataService.fetchKlines(
+                                                currentPair,
+                                                currentInterval,
+                                                1,
+                                            );
+                                        if (latest && latest[0])
+                                            chartModule.update(latest[0]);
+
+                                        // Update header
+                                        const ticker =
+                                            await MarketDataService.fetchTickers(
+                                                [currentPair],
+                                            );
+                                        if (ticker && ticker[0]) {
+                                            const t = ticker[0];
+                                            const p = parseFloat(
+                                                t.lastPrice || t.c || 0,
+                                            );
+                                            const c = parseFloat(
+                                                t.priceChangePercent ||
+                                                    t.P ||
+                                                    0,
+                                            );
+
+                                            if (p > 0) {
+                                                const decimals =
+                                                    currentPair === "SOLUSDT"
+                                                        ? 2
+                                                        : 1;
+                                                UI.livePrice.innerText =
+                                                    "$" +
+                                                    p.toLocaleString(
+                                                        undefined,
+                                                        {
+                                                            minimumFractionDigits:
+                                                                decimals,
+                                                        },
+                                                    );
+                                            }
+                                            if (!isNaN(c)) {
+                                                UI.liveChange.innerText =
+                                                    (c >= 0 ? "+" : "") +
+                                                    c.toFixed(2) +
+                                                    "%";
+                                                UI.liveChange.className = `text-xs font-mono font-medium ${c >= 0 ? "text-emerald-400" : "text-red-400"}`;
+                                            }
+                                        }
+                                    } catch (err) {
+                                        console.warn("Polling error:", err);
+                                    }
+                                }, 2000);
+                            }
+
+                            async function refreshWatchlist() {
+                                try {
+                                    const tickers =
+                                        await MarketDataService.fetchTickers(
+                                            watchlistPairs,
+                                        );
+                                    tickers.forEach((t) => {
+                                        const s = (
+                                            t.symbol ||
+                                            t.s ||
+                                            ""
+                                        ).replace("USDT", "");
+                                        const el = document.getElementById(
+                                            `price-${s}`,
+                                        );
+                                        const p = parseFloat(
+                                            t.lastPrice || t.c || 0,
+                                        );
+                                        if (el && p > 0) {
+                                            el.innerText = p.toLocaleString(
+                                                undefined,
+                                                { minimumFractionDigits: 1 },
+                                            );
+                                        }
+                                    });
+                                } catch (e) {}
+                            }
+
+                            if (chartModule.init()) {
+                                loadSymbol(
+                                    currentPair,
+                                    currentLabel,
+                                    currentInterval,
+                                );
+                                refreshWatchlist();
+                                setInterval(refreshWatchlist, 10000);
+
+                                UI.watchlistItems.forEach((item) => {
+                                    item.onclick = () => {
+                                        const pair = item.dataset.pair;
+                                        const label = item.dataset.label;
+
+                                        // Update ALL items (desktop sidebar and mobile bar)
+                                        UI.watchlistItems.forEach((i) => {
+                                            const isMatch =
+                                                i.dataset.pair === pair;
+
+                                            // Handle Desktop Styles
+                                            i.classList.remove(
+                                                "bg-gray-50",
+                                                "dark:bg-border-dark/50",
+                                                "border-primary/20",
+                                            );
+                                            if (
+                                                isMatch &&
+                                                i.tagName === "DIV"
+                                            ) {
+                                                i.classList.add(
+                                                    "bg-gray-50",
+                                                    "dark:bg-border-dark/50",
+                                                    "border-primary/20",
+                                                );
+                                            }
+
+                                            // Handle Mobile Styles (Buttons)
+                                            if (i.tagName === "BUTTON") {
+                                                i.classList.remove(
+                                                    "active",
+                                                    "border-primary/30",
+                                                    "mobile-active-state",
+                                                    "text-white",
+                                                );
+                                                i.classList.add(
+                                                    "text-gray-400",
+                                                    "border-white/10",
+                                                );
+
+                                                if (isMatch) {
+                                                    i.classList.add(
+                                                        "active",
+                                                        "border-primary/30",
+                                                        "mobile-active-state",
+                                                        "text-white",
+                                                    );
+                                                    i.classList.remove(
+                                                        "text-gray-400",
+                                                        "border-white/10",
+                                                    );
+                                                }
+                                            }
+                                        });
+
+                                        loadSymbol(pair, label);
+                                    };
+                                });
+
+                                UI.timeframeBtns.forEach((btn) => {
+                                    btn.onclick = () => {
+                                        const interval = btn.dataset.interval;
+                                        UI.timeframeBtns.forEach((b) => {
+                                            b.classList.remove(
+                                                "text-white",
+                                                "bg-primary",
+                                                "shadow-lg",
+                                                "shadow-primary/20",
+                                                "tf-btn-active",
+                                            );
+                                            b.classList.add(
+                                                "text-gray-400",
+                                                "hover:bg-white/10",
+                                            );
+                                            b.classList.remove("active");
+                                        });
+                                        btn.classList.add(
+                                            "text-white",
+                                            "bg-primary",
+                                            "shadow-lg",
+                                            "shadow-primary/20",
+                                            "tf-btn-active",
+                                            "active",
+                                        );
+                                        btn.classList.remove(
+                                            "text-gray-400",
+                                            "hover:bg-white/10",
+                                        );
+                                        loadSymbol(
+                                            currentPair,
+                                            currentLabel,
+                                            interval,
+                                        );
+                                    };
+                                });
+                            }
+                        })();
+                    </script>
+                </div>
+                <!-- Right Sidebar (Order Book) -->
+                <div
+                    class="hidden md:flex col-span-3 lg:col-span-2 flex-col p-4 bg-gray-50 dark:bg-[#13161c] overflow-y-auto"
+                >
+                    <div class="flex-1">
+                        <div
+                            class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4"
+                        >
+                            Order Book
+                        </div>
+                        <div class="space-y-1 mb-6">
+                            <div
+                                class="flex justify-between text-[10px] font-mono"
+                            >
+                                <span class="text-accent-red">43,215.5</span>
+                                <span class="text-gray-500">0.45</span>
+                            </div>
+                            <div
+                                class="flex justify-between text-[10px] font-mono"
+                            >
+                                <span class="text-accent-red">43,214.0</span>
+                                <span class="text-gray-500">1.20</span>
+                            </div>
+                            <div
+                                class="flex justify-between text-[10px] font-mono"
+                            >
+                                <span class="text-accent-red">43,213.5</span>
+                                <span class="text-gray-500">0.15</span>
+                            </div>
+                            <div
+                                class="my-3 border-t border-dashed border-gray-200 dark:border-gray-700"
+                            >
+                            </div>
+                            <div
+                                class="flex justify-between text-[10px] font-mono"
+                            >
+                                <span class="text-accent-green">43,210.5</span>
+                                <span class="text-gray-500">2.50</span>
+                            </div>
+                            <div
+                                class="flex justify-between text-[10px] font-mono"
+                            >
+                                <span class="text-accent-green">43,209.0</span>
+                                <span class="text-gray-500">0.85</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .mobile-active-state {
+        background-color: rgba(59, 130, 246, 0.15) !important;
+        border-color: #3b82f6 !important;
+    }
+    .dark .mobile-active-state {
+        background-color: rgba(59, 130, 246, 0.25) !important;
+    }
+</style>
