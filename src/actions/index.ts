@@ -39,7 +39,6 @@ export const server = {
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
-
       const { error } = await resend.emails.send({
         from: 'NeoGen Applications <onboarding@resend.dev>',
         to: ['test@gmail.com'],

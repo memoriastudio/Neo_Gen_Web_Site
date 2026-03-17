@@ -1,4 +1,31 @@
 <section id="contact" class="py-20 bg-background-dark">
+  <div
+    id="popup"
+    class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-primary-950/20 opacity-0 backdrop-blur-sm transition-opacity duration-300"
+  >
+    <div
+      id="popup-content"
+      class="flex max-w-xl scale-90 items-start gap-6 rounded-2xl border border-primary-100 bg-white p-10 shadow-2xl transition-transform duration-300"
+    >
+      <div id="icon-success" class="hidden shrink-0">
+        <svg class="text-green-500 h-20 w-20" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-width="2" d="M9 12l2 2 4-4"></path>
+        </svg>
+      </div>
+
+      <div id="icon-error" class="hidden shrink-0">
+        <svg class="text-red-500 h-20 w-20" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-width="2" d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </div>
+
+      <div class="flex-1">
+        <h3 id="popup-title" class="mb-2 text-2xl font-bold text-black"></h3>
+        <p id="popup-message" class="text-lg text-gray-800"></p>
+      </div>
+    </div>
+  </div>
   <h2
     class="text-5xl font-black tracking-tight text-white sm:text-6xl md:text-8xl leading-[1.05] text-center mb-12"
   >
@@ -15,7 +42,7 @@
         no commitment.
       </p>
 
-      <form class="space-y-6" id="applicationForm" novalidate>
+      <form id="applicationForm" class="space-y-6">
         <!-- Success Message -->
         <div
           id="successMessage"
@@ -217,20 +244,36 @@
 </section>
 
 <script>
-  const form = document.getElementById("applicationForm");
-  const formContent = document.getElementById("formContent");
-  const successMessage = document.getElementById("successMessage");
+  import { actions } from "astro:actions";
 
-  if (form) {
-    form.addEventListener("submit", (e) => {
+  const form = document.getElementById("applicationForm");
+  const submitBtn = form?.querySelector('button[type="submit"]');
+
+  const popup = document.getElementById("popup");
+  const popupContent = document.getElementById("popup-content");
+  const popupTitle = document.getElementById("popup-title");
+  const popupMessage = document.getElementById("popup-message");
+  const iconSuccess = document.getElementById("icon-success");
+  const iconError = document.getElementById("icon-error");
+
+  if (
+    form &&
+    submitBtn &&
+    popup &&
+    popupTitle &&
+    popupMessage &&
+    iconSuccess &&
+    iconError
+  ) {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
       let isValid = true;
 
       const toggleError = (id, show) => {
         const el = document.getElementById(id);
         if (el) {
-          if (show) el.classList.remove("hidden");
-          else el.classList.add("hidden");
+          el.classList.toggle("hidden", !show);
         }
       };
 
@@ -251,7 +294,16 @@
           toggleError(field.errorId, false);
         }
       });
+      const emailInput = document.getElementById("email");
 
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailInput.value || !emailRegex.test(emailInput.value)) {
+        toggleError("error-email", true);
+        isValid = false;
+      }
+
+      // Radio (rights)
       const rights = document.querySelector('input[name="rights"]:checked');
       if (!rights) {
         toggleError("error-rights", true);
@@ -262,11 +314,58 @@
 
       if (!isValid) return;
 
-      if (formContent && successMessage) {
-        formContent.classList.add("hidden");
-        successMessage.classList.remove("hidden");
-        form.scrollIntoView({ behavior: "smooth", block: "center" });
+      // Estado loading botón
+      const originalText = submitBtn.innerText;
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Sending...";
+      submitBtn.classList.add("opacity-70", "cursor-not-allowed");
+
+      const formData = new FormData(form);
+
+      try {
+        const { error } = await actions.send(formData);
+
+        if (!error) {
+          showPopup("success");
+          form.reset();
+        } else {
+          showPopup("error", error.message);
+        }
+      } catch (err) {
+        showPopup("error", "Connection error. Please check your internet.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = originalText;
+        submitBtn.classList.remove("opacity-70", "cursor-not-allowed");
       }
     });
+
+    function showPopup(type, errorMessage) {
+      iconSuccess.classList.add("hidden");
+      iconError.classList.add("hidden");
+
+      if (type === "success") {
+        iconSuccess.classList.remove("hidden");
+        popupTitle.innerText = "Application sent successfully!";
+        popupMessage.innerText =
+          "Thanks for applying to NeoGen. We’ll review your channel and get back to you within 48 hours.";
+      } else {
+        iconError.classList.remove("hidden");
+        popupTitle.innerText = "Application could not be sent";
+        popupMessage.innerText =
+          errorMessage ||
+          "An unexpected error occurred. Please try again later.";
+      }
+
+      popup.classList.remove("opacity-0", "pointer-events-none");
+      popupContent.classList.remove("scale-90");
+      popupContent.classList.add("scale-100");
+
+      setTimeout(() => {
+        popup.classList.add("opacity-0", "pointer-events-none");
+        popupContent.classList.remove("scale-100");
+        popupContent.classList.add("scale-90");
+      }, 5000);
+    }
   }
 </script>
